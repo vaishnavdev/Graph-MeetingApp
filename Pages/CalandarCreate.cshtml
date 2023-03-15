@@ -1,0 +1,83 @@
+﻿@page
+@model DotNetCoreRazor_MSGraph.Pages.CalandarCreateModel
+@{
+    ViewData["Title"] = "ASP.NET Core and Microsoft Graph";
+}
+
+<html>
+    <head>
+       
+    </head>
+
+<div class="card-header bg-info">
+    <h2 class="text-white text-center">Schedule Meeting</h2>
+</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <body>
+<div class="card">
+    <form method="post">
+        <div class="container">
+            <br />
+        <div class="row">
+            <div  class="col-4"><label><b>Subject</b></label></div>
+            <div class="col-5"><input class="form-control" type="text" asp-for="Event.Subject"/></div>
+        </div><br />
+        
+            <div class="col-5"><input class="form-control" type="hidden" asp-for="Event.Body.ContentType" value="HTML" readonly/></div>
+
+        <div class="row">
+            <div  class="col-4"> <label><b>Message Body</b></label></div>
+            <div class="col-5 "> <textarea class="form-control" asp-for="Event.Body.Content"></textarea></div>
+        </div><br/>
+
+        <div class="row">
+            <div  class="col-4"> <label><b>Start Date - Time</b></label></div>
+            <div class="col-5 "><input class="form-control" type = "datetime" asp-for="Event.Start.DateTime"/></div>
+        </div><br />
+
+        <div class="row">
+            <div  class="col-4"> <label><b>End Date - Time</b></label></div>
+            <div class="col-5 "><input class="form-control" type="datetime" asp-for="Event.End.DateTime"/></div>
+        </div><br />
+
+        <div class="row">
+            <div  class="col-4"> <label><b>Location - Display Name</b></label> </div>
+            <div class="col-5 "><input class="form-control" type="text" asp-for="Event.Location.DisplayName"/></div>
+        </div><br />
+
+        <div class="row">
+            <div class="col-4"><b>Meeting Attendees</b></div>
+            <div class="col-5">
+                <input type="text" asp-for="Attendee.EmailAddress.Address" class="form-control" placeholder="Enter attendee email address"/>
+            </div>
+        </div>
+       </div><br/>
+
+       <div class="row">
+            <div  class="col-4"> <label><b>Allow NewTime Proposals</b></label>  </div>
+            <div class="col-5"><input class="form-control" type="text" asp-for="Event.AllowNewTimeProposals" value="true" readonly/></div>
+        </div><br />
+
+            <div class="col-5"> <input class="form-control" type="hidden" asp-for="Event.TransactionId" value="7E163156-7762-4BEB-A1C6-729EA81755A1"/></div>
+     
+        <div class="row">
+            <div  class="col-3"> </div>
+            <div class="col-5"> <input class="btn btn-outline-info" type="submit" asp-page-handler="Submit" value="Schedule Meeting"/></div>
+        </div><br />
+    </form>
+    <span>
+            @if(@Model.Message != null && @Model.Message != "")
+            {
+                <p class="alert alert-success">@Model.Message</p>
+            }
+        </span>
+</div>
+    </body>
+}
+else
+{
+     <a class="btn btn-primary btn-large" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Click here to sign in</a>
+}
+
+</html>

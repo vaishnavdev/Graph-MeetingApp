@@ -1,0 +1,73 @@
+﻿@page
+@model CalendarEditModel
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<html>
+    <head>   </head>
+    <div class="card-header bg-info text-center">
+        <h2 class="text-white">Edit Your Event</h2>
+    </div>
+@if (User.Identity.IsAuthenticated)
+{
+    <body>
+        <div class="card-header">
+            <form method="post">
+                    <input type="hidden" class="form-control" asp-for="@Model.Event.Id" readonly/>
+            <br />
+            <div class="row">
+                <div class="col-3">
+                    <label>Subject</label>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" asp-for="@Model.Event.Subject"/>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-3">
+                    <label>Location - DisplayName</label>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" asp-for="@Model.Event.Location.DisplayName"/>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-3">
+                    <label>Start Date - Time</label>
+                </div>
+                <div class="col">
+                    <input type="datetime" class="form-control" asp-for="@Model.Event.Start.DateTime">
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-3">
+                    <label>End Date - Time</label>
+                </div>
+                <div class="col">
+                    <input type="datetime" class="form-control" asp-for="@Model.Event.End.DateTime"/>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-2">
+                    <input type="submit" class="btn btn-outline-success" asp-page-handler="Update" value="Update Event">
+                </div>
+                <div class="col-2">
+                   <a class="btn btn-outline-info" asp-page="/Calendar">Cancel</a>
+                </div>
+            </div>
+            </form>
+        </div>
+    </body>
+}
+else
+{
+     <a class="btn btn-primary btn-large" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Click here to sign in</a>
+}
+
+</html>

@@ -1,0 +1,113 @@
+@page
+@model CalendarModel
+@{
+    ViewData["Title"] = "View Events";
+}
+
+<div>
+    <h1 class="text-secondary">Calendar Events</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (Model.Events != null && Model.Events.Any()) {
+            @foreach (var evt in Model.Events)
+            {
+                <div class="card" style="width: 50rem;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <h5 class="card-title text-primary">
+                            @evt.Subject
+                        </h5>
+                            </div>
+                             <div class="col-2">
+                            <a class="btn btn-outline-warning" asp-route-evtid="@evt.Id" asp-page-handler="Edit" asp-page="/CalendarEdit">Edit Event</a>
+                        </div>
+                            <div class="col-3">
+                            <a class="btn btn-outline-danger" asp-route-evtid="@evt.Id" asp-page-handler="Delete">Delete Event</a>
+                        </div>
+                        </div>
+                       
+                        <p class="card-text">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4"><b>Display Name</b></div>
+                                    <div class="col">
+                                        @evt.Location.DisplayName
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"><b>Time Zone</b></div>
+                                    <div class="col">
+                                        @evt.Start.TimeZone
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <strong>Start Date Time</strong>
+                                    </div>
+                                    <div class="col">
+                                        @Model.FormatDateTimeTimeZone(evt.Start)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <strong>End Date Time</strong>
+                                    </div>
+                                    <div class="col">
+                                        @Model.FormatDateTimeTimeZone(evt.End)
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <strong>Organizer Email</strong>
+                                    </div>
+                                    <div class="col">
+                                        @evt.Organizer.EmailAddress.Address
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-4">
+                                        <strong>Organizer Name</strong>
+                                    </div>
+                                    <div class="col">
+                                        @evt.Organizer.EmailAddress.Name
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <strong>Meeting URL</strong>
+                                    </div>
+                                    <div class="col">
+                                        <a href = "@evt.WebLink">Click here to join meeting</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <strong>Attendees Required</strong>
+                                    </div>
+                                    <div class="col">
+                                        @foreach(var attendee in @evt.Attendees)
+                                        {
+                                            <p>@attendee.EmailAddress.Address </p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+                <br />
+            }
+
+        }
+        else {
+            <div>No calendar events found</div>
+        }
+    }
+    else
+    {
+        <a class="btn btn-primary btn-large" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Click here to sign in</a>
+    }
+
+</div>

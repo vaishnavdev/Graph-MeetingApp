@@ -1,0 +1,27 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<br /><br />
+<div class="card bg-light">
+    <h1></h1>
+    <br />
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h4 class="m-3">
+            @if (Model.UserPhoto != null)
+            {
+                <img src="data:image/jpeg;base64, @Model.UserPhoto" class="user-photo nav-profile-photo rounded-circle align-self-center mr-2" />
+            }
+            Hi <b class="text-primary">@Model.UserDisplayName!</b> , Welcome to Meeting App</h4><br />
+             <h2 class="px-5">  Create your events from <b class="text-info">Schedule Event</b> section</h2><br/>
+            <h2 class="px-5"> Manage your events in <b class="text-info">View Events</b> section</h2><br/>
+
+    }
+    else
+    {
+        <a class="btn btn-primary btn-large" href="https://localhost:5001/signin-oidc">Click here to sign in</a>
+    }
+</div>
