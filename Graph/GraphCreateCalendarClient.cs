@@ -24,7 +24,7 @@ namespace DotNetCoreRazor_MSGraph.Graph
         {
             Random random = new Random();
             int randomNumber = random.Next(0, 100);
-            
+            model.IsOnlineMeeting = true;
             model.TransactionId = model.TransactionId+ randomNumber;
             var Event = model;
             var result = _graphServiceClient.
