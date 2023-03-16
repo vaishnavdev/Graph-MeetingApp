@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graph;
+using System.Collections.Generic;
 
 namespace DotNetCoreRazor_MSGraph.Model
 {

@@ -33,7 +33,7 @@ namespace DotNetCoreRazor_MSGraph.Pages
                 ? "Pacific Standard Time"
                 : MailboxSettings.TimeZone;
             List<Attendee> attendees = new List<Attendee>();
-            eventDetails.Attendee = Attendee;
+            eventDetails.Attendee.EmailAddress.Address = Attendee.EmailAddress.Address;
             attendees.Add(eventDetails.Attendee);
             eventDetails.Event.Attendees = attendees;
             eventDetails.Event.Start.TimeZone = userTimeZone;
