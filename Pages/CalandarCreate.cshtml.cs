@@ -41,7 +41,7 @@ namespace DotNetCoreRazor_MSGraph.Pages
             this.Event = _graphCreateCalendarClient.createEvent(eventDetails.Event,userTimeZone);
             if(this.Event != null)
             {
-                this.Message = "Meeting Scheduled at specified timings!";
+                this.Message = "Hi "+User.Identity.Name+" Meeting Scheduled at specified timings!";
             }
             return RedirectToPage("Calendar");
         }
