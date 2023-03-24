@@ -54,9 +54,17 @@ namespace DotNetCoreRazor_MSGraph.Graph
                         evt.Attendees,
                         evt.Body,
                         evt.Location,
+                        evt.SeriesMasterId,
+                        //evt.Recurrence.Pattern.Type.Value,
+                        //evt.Recurrence.Range.StartDate.Day,
+                        //evt.Recurrence.Range.StartDate.Month,
+                        //evt.Recurrence.Range.StartDate.Year,
+                        //evt.Recurrence.Range.EndDate
+                        //evt.Recurrence.Range.NumberOfOccurrences.,
+                        
                         
                     })
-                    .OrderBy("start/DateTime")
+                    //.OrderBy("start/DateTime")
                     .GetAsync();
 
                 return calendarEvents;

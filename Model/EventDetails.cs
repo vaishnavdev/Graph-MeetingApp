@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graph;
+using System.Collections.Generic;
 
 namespace DotNetCoreRazor_MSGraph.Model
 {
@@ -8,6 +9,5 @@ namespace DotNetCoreRazor_MSGraph.Model
 
         public Attendee Attendee { get; set; }
 
-        //model class with variables
 }
 }

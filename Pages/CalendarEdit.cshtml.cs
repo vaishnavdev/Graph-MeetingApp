@@ -40,7 +40,7 @@ namespace DotNetCoreRazor_MSGraph.Pages
             this.Event.Start.TimeZone = userTimeZone;
             this.Event.End.TimeZone = userTimeZone;
             this.Event = _graphUpdateCalendarClient.updateEvent(this.Event);
-            return RedirectToPage("Index");
+            return RedirectToPage("Calendar");
         }
 
         public string FormatDateTimeTimeZone(DateTimeTimeZone value)

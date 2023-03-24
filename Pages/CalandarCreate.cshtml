@@ -1,83 +1,466 @@
 ﻿@page
 @model DotNetCoreRazor_MSGraph.Pages.CalandarCreateModel
 @{
-    ViewData["Title"] = "ASP.NET Core and Microsoft Graph";
+ViewData["Title"] = "ASP.NET Core and Microsoft Graph";
+//var recurrencePattern = "Weekly";
 }
 
+@section scripts{
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    $(document).ready(function () {
+        //$('#recurrence_weekly').hide();
+        $('#noEndDate').hide();
+        $('#noOfOccurances').hide();
+        $('#endBy').hide();
+        $('#recurr_every_label_3').hide();
+        $('#recurr_every_label_2').hide();
+        $('#Event_Recurrence_Pattern_DaysOfWeek').hide();
+        $('#Event_Recurrence_Pattern_Interval').hide();
+        $('#recurr_every_label_1').hide();
+        $('#recurr_every_label_4').hide();
+        $('#recurr_every_label_5').hide();
+        $('#recurr_every_label_6').hide();
+        $('#recurr_every_label_7').hide();
+        $('#monthly_label_1').hide();
+        $('#monthly_label_2').hide();
+        $('#monthly_label_3').hide();
+        $('#daysOfWeek_monthly').hide();
+        $('#daily_interval_note').hide();
+        $('#Event_Recurrence_Pattern_Index').hide();
+        $('#interval_monthly').hide();
+        $('#recurr_every_label_8_year').hide();
+        $('#Event_Recurrence_Pattern_Type').change(function () {
+            if ($(this).val() == 'Weekly') {
+                $('#recurr_every_label_3').hide();
+                $('#recurr_every_label_2').show();
+                 $('#Event_Recurrence_Pattern_DaysOfWeek').show();
+                 $('#Event_Recurrence_Pattern_Interval').show();
+                $('#recurr_every_label_1').show();
+                $('#recurr_every_label_4').hide();
+                $('#recurr_every_label_5').hide();
+                $('#recurr_every_label_6').hide();
+                $('#recurr_every_label_7').hide();
+                //
+                $('#daily_interval_note').hide();
+                //
+                 $('#monthly_label_1').hide();
+                $('#monthly_label_2').hide();
+               $('#monthly_label_3').hide();
+                $('#daysOfWeek_monthly').hide();
+               $('#Event_Recurrence_Pattern_Index').hide();
+               $('#interval_monthly').hide();
+               //
+               $('#recurr_every_label_8_year').hide();
+               
+            }
+            else if($(this).val() == 'Daily') {
+                $('#recurr_every_label_3').show();
+                $('#recurr_every_label_2').hide();
+                //$('#Event_Recurrence_Pattern_Interval').text = 0;
+                $('#Event_Recurrence_Pattern_DaysOfWeek').hide();
+                $('#Event_Recurrence_Pattern_Interval').show();
+                $('#recurr_every_label_1').show();
+                $('#recurr_every_label_4').hide();
+                $('#recurr_every_label_5').hide();
+                $('#recurr_every_label_6').hide();
+                $('#recurr_every_label_7').hide();
+                //
+                 $('#monthly_label_1').hide();
+                $('#monthly_label_2').hide();
+               $('#monthly_label_3').hide();
+                $('#daysOfWeek_monthly').hide();
+               $('#Event_Recurrence_Pattern_Index').hide();
+               $('#interval_monthly').hide();
+               //
+               $('#daily_interval_note').show();
+               //
+               $('#recurr_every_label_8_year').hide();
+            }
+            else if($(this).val()=='AbsoluteMonthly'){
+                $('#recurr_every_label_4').show();
+                $('#recurr_every_label_5').show();
+                $('#Event_Recurrence_Pattern_Interval').show();
+                $('#recurr_every_label_1').hide();
+                $('#recurr_every_label_3').hide();
+                $('#recurr_every_label_2').hide();
+                 $('#Event_Recurrence_Pattern_DaysOfWeek').hide();
+                 $('#recurr_every_label_6').show();
+               $('#recurr_every_label_7').show();
+               //montlhy show
+                $('#monthly_label_1').show();
+                $('#monthly_label_2').show();
+               $('#monthly_label_3').show();
+                $('#daysOfWeek_monthly').show();
+               $('#Event_Recurrence_Pattern_Index').show();
+               $('#interval_monthly').show();
+               //
+               $('#daily_interval_note').hide();
+               //
+               $('#recurr_every_label_8_year').hide();
+            }
+            else if($(this).val()=='AbsoluteYearly'){
+                $('#recurr_every_label_8_year').show();
+                $('#recurr_every_label_3').hide();
+                $('#recurr_every_label_2').hide();
+                 $('#Event_Recurrence_Pattern_DaysOfWeek').hide();
+                  $('#Event_Recurrence_Pattern_Interval').show();
+                $('#recurr_every_label_1').show();
+                $('#recurr_every_label_4').hide();
+               $('#recurr_every_label_5').hide();
+               $('#recurr_every_label_6').hide();
+               $('#recurr_every_label_7').hide();
+               //
+                $('#monthly_label_1').hide();
+                $('#monthly_label_2').hide();
+               $('#monthly_label_3').hide();
+                $('#daysOfWeek_monthly').hide();
+               $('#Event_Recurrence_Pattern_Index').hide();
+               $('#interval_monthly').hide();
+               //
+               $('#daily_interval_note').hide();
+               //
+               $('#recurr_every_label_8_year').hide();
+            }
+            else{
+                $('#recurr_every_label_3').hide();
+                $('#recurr_every_label_2').hide();
+                 $('#Event_Recurrence_Pattern_DaysOfWeek').hide();
+                  $('#Event_Recurrence_Pattern_Interval').hide();
+                $('#recurr_every_label_1').hide();
+                $('#recurr_every_label_4').hide();
+               $('#recurr_every_label_5').hide();
+               $('#recurr_every_label_6').hide();
+               $('#recurr_every_label_7').hide();
+               //
+                $('#monthly_label_1').hide();
+                $('#monthly_label_2').hide();
+               $('#monthly_label_3').hide();
+                $('#daysOfWeek_monthly').hide();
+               $('#Event_Recurrence_Pattern_Index').hide();
+               $('#interval_monthly').hide();
+               //
+               $('#daily_interval_note').hide();
+            }
+        });//change
+         
+         
+        $('#Event_Recurrence_Range_Type').change(function () {
+            if ($(this).val() == 'numbered') {
+                $('#noOfOccurances').show();
+                $('#endBy').hide();
+                $('#noEndDate').hide();
+            } else if ($(this).val() == 'noEnd') {
+                $('#noEndDate').show();
+                $('#noOfOccurances').hide();
+                $('#endBy').hide();
+            } else if($(this).val()=='endDate'){
+                $('#endBy').show();
+                $('#noEndDate').hide();
+                $('#noOfOccurances').hide();
+            }else{
+                 $('#endBy').hide();
+                $('#noEndDate').hide();
+                $('#noOfOccurances').hide();
+            }
+
+        });//change
+        $('#recurringMeetingDiv').hide();
+        $('#recurringMeeting').change(function () {
+            if ($('#recurringMeeting').prop('checked')) {
+                $('#recurringMeetingDiv').show();
+            } else {
+                $('#recurringMeetingDiv').hide();
+            }
+        });//change
+
+    });
+</script>
+}
+
+
 <html>
-    <head>
-       
-    </head>
+
+<head>
+    <style>
+  .custom-input{
+    border-width: 0px 0px 1px;
+    border-color: #DADADA;
+    font-size: 14px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #323A47;
+    padding-bottom: 5px;
+}
+    </style>
+
+</head>
 
 <div class="card-header bg-info">
     <h2 class="text-white text-center">Schedule Meeting</h2>
 </div>
 @if (User.Identity.IsAuthenticated)
 {
-    <body>
-<div class="card">
-    <form method="post">
-        <div class="container">
+
+<body>
+    <script>
+
+    </script>
+    <div class="card bg-light">
+        <form method="post">
+            <div class="container">
+                <br />
+                <div class="row">
+                    <div class="col-4"><b>To (Required)</b></div>
+                    <div class="col-5">
+                        <textarea asp-for="Attendee.EmailAddress.Address" class="form-control custom-input"
+                            placeholder="Enter required attendee's email address"></textarea>
+                    </div>
+                </div>
             <br />
-        <div class="row">
-            <div  class="col-4"><label><b>Subject</b></label></div>
-            <div class="col-5"><input class="form-control" type="text" asp-for="Event.Subject"/></div>
-        </div><br />
-        
-            <div class="col-5"><input class="form-control" type="hidden" asp-for="Event.Body.ContentType" value="HTML" readonly/></div>
+             <div class="row">
+                 <div class="col-4"><b>To (Optional)</b></div>
+                    <div class="col-5">
+                        <textarea asp-for="OptionalAttendee.EmailAddress.Address" class="form-control custom-input"
+                            placeholder="Enter optional attendee's email address"></textarea>
+                    </div>
+                </div>
+            <br />
+                <div class="row">
+                    <div class="col-4"><label><b>Subject</b></label></div>
+                    <div class="col-5"><input class="form-control custom-input" type="text" asp-for="Event.Subject" /></div>
+                </div><br />
 
-        <div class="row">
-            <div  class="col-4"> <label><b>Message Body</b></label></div>
-            <div class="col-5 "> <textarea class="form-control" asp-for="Event.Body.Content"></textarea></div>
-        </div><br/>
+                <div class="col-5"><input class="form-control" type="hidden" asp-for="Event.Body.ContentType"
+                        value="HTML" readonly /></div>
 
-        <div class="row">
-            <div  class="col-4"> <label><b>Start Date - Time</b></label></div>
-            <div class="col-5 "><input class="form-control" type = "datetime" asp-for="Event.Start.DateTime"/></div>
-        </div><br />
+                <div class="row">
+                    <div class="col-4"> <label><b>Message Body</b></label></div>
+                    <div class="col-8 "> <textarea class="form-control" asp-for="Event.Body.Content" rows="20" cols="5"></textarea></div>
+                </div><br />
 
-        <div class="row">
-            <div  class="col-4"> <label><b>End Date - Time</b></label></div>
-            <div class="col-5 "><input class="form-control" type="datetime" asp-for="Event.End.DateTime"/></div>
-        </div><br />
+                <div class="row">
+                    <div class="col-4"> <label><b>Start Date - Time</b></label></div>
+                    <div class="col-5 "><input class="form-control" type="datetime" asp-for="Event.Start.DateTime" />
+                    </div>
+                </div><br />
 
-        <div class="row">
-            <div  class="col-4"> <label><b>Location - Display Name</b></label> </div>
-            <div class="col-5 "><input class="form-control" type="text" asp-for="Event.Location.DisplayName"/></div>
-        </div><br />
+                <div class="row">
+                    <div class="col-4"> <label><b>End Date - Time</b></label></div>
+                    <div class="col-5 "><input class="form-control" type="datetime" asp-for="Event.End.DateTime" />
+                    </div>
+                </div><br />
 
-        <div class="row">
-            <div class="col-4"><b>Meeting Attendees</b></div>
-            <div class="col-5">
-                <input type="text" asp-for="Attendee.EmailAddress.Address" class="form-control" placeholder="Enter attendee email address"/>
+                <div class="row">
+                    <div class="col-4"> <label><b>Location - Display Name</b></label> </div>
+                    <div class="col-5 "><input class="form-control" type="text" asp-for="Event.Location.DisplayName" />
+                    </div>
+                </div><br />
+
+            <div class="row">
+                <div class="col-4"><label><b> Allow NewTime Proposals</b></label></div>
+                <div class="col-5"><input class="form-control" type="text" asp-for="Event.AllowNewTimeProposals"
+                        value="true" readonly /></div>
+            </div><br />
+
+            <div class="row">
+                <div class="col-4"> <label><b>Make Recurring</b></label> </div>
+                <div class="col-5"><input type="checkbox" asp-for="IsRecurringMeeting" id="recurringMeeting" /></div>
+            </div><br />
+
+            <div id="recurringMeetingDiv">
+                <div class="row">
+                    <div class="col-4"> <label><b>Reccurence Pattern</b></label> </div>
+                    <div class="col-5">
+                        <select asp-for="Event.Recurrence.Pattern.Type">
+                            <option>Select</option>
+                            <option asp-for="Event.Recurrence.Pattern.Type" value="Daily">Daily</option>
+                            <option asp-for="Event.Recurrence.Pattern.Type" value="Weekly">Weekly</option>
+                            <option asp-for="Event.Recurrence.Pattern.Type" value="AbsoluteMonthly">Monthly</option>
+                            <option asp-for="Event.Recurrence.Pattern.Type" value="AbsoluteYearly">Yearly</option>
+                        </select>
+                    </div>
+                </div><br />
+
+                <div class="row" id="recurrence_weekly">
+                    <div class="col-4">
+                        <label id="daily_interval_note">If Interval Day(s) is specified as '0', meeting occurs every weekday</label>
+                    </div>
+                       
+                    <div  class="col-6"> 
+                         <label id="recurr_every_label_4">Day</label>
+                        <input id="recurr_every_label_5" type="text" asp-for="Event.Recurrence.Pattern.DayOfMonth" value="24" size="1">
+                        <label id="recurr_every_label_1">Recurr Every</label> &nbsp;
+                        <label id="recurr_every_label_6">of every</label>
+                       
+                        <input
+                                asp-for="Event.Recurrence.Pattern.Interval" type="text" value="1" size="1" />
+                                <label id="recurr_every_label_2"> week(s)on:&nbsp;</label>
+                                <label id="recurr_every_label_3">Day(s)</label>
+                                <label id="recurr_every_label_7">Month(s)</label>
+                                <label id="recurr_every_label_8_year">Year(s)</label>
+                                
+                        <select  multiple asp-for="Event.Recurrence.Pattern.DaysOfWeek" size="2">
+                            <option asp-for="Event.Recurrence.Pattern.DaysOfWeek" value="Sunday">Sunday</option>
+                            <option asp-for="Event.Recurrence.Pattern.DaysOfWeek" value="Monday">Monday</option>
+                            <option asp-for="Event.Recurrence.Pattern.DaysOfWeek" value="Teusday">Teusday</option>
+                            <option asp-for="Event.Recurrence.Pattern.DaysOfWeek" value="Wednesday">Wednesday</option>
+                            <option asp-for="Event.Recurrence.Pattern.DaysOfWeek" value="Thursday">Thursday</option>
+                            <option asp-for="Event.Recurrence.Pattern.DaysOfWeek" value="Friday">Friday</option>
+                            <option asp-for="Event.Recurrence.Pattern.DaysOfWeek" value="Saturday">Saturday</option>
+                        </select>
+                    </div>
+                </div><br />
+                <!--<div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-8">
+                        <label id="monthly_label_1">On the:</label>
+                        <select asp-for="Event.Recurrence.Pattern.Index">
+                            <option>Select</option>
+                            <option value="first">first</option>
+                            <option value="second">second</option>
+                            <option value="third">third</option>
+                            <option value="fourth">fourth</option>
+                            <option value="last">last</option>
+                        </select>
+                        <select id="daysOfWeek_monthly" asp-for="Event.Recurrence.Pattern.FirstDayOfWeek" size="1">
+                            <option asp-for="Event.Recurrence.Pattern.FirstDayOfWeek"  value="Sunday">Sunday</option>
+                            <option asp-for="Event.Recurrence.Pattern.FirstDayOfWeek"  value="Monday">Monday</option>
+                            <option asp-for="Event.Recurrence.Pattern.FirstDayOfWeek"  value="Teusday">Teusday</option>
+                            <option asp-for="Event.Recurrence.Pattern.FirstDayOfWeek"  value="Wednesday">Wednesday</option>
+                            <option asp-for="Event.Recurrence.Pattern.FirstDayOfWeek" value="Thursday">Thursday</option>
+                            <option asp-for="Event.Recurrence.Pattern.FirstDayOfWeek" value="Friday">Friday</option>
+                            <option asp-for="Event.Recurrence.Pattern.FirstDayOfWeek" value="Saturday">Saturday</option>
+                        </select>
+                        <label id="monthly_label_2">of every</label>
+                        <input id="interval_monthly"
+                                asp-for="Event.Recurrence.Pattern.Interval"  type="text" size="1" />
+                                <label id="monthly_label_3">Month(s)</label>
+                    </div>
+                </div>-->
+
+                <div class="card bg-light mx-3"><br />
+
+                    <label class="text-center"><b>Range of Recurrence</b></label><br />
+
+                    <div class="row">
+                        <div class="col-1"><b>Start:</b></div>
+                        <div class="col-1">
+                            <select asp-for="startDateDay">
+                                @for (var i=1; i<32; i++) { <option value="@i">@i</option>
+                                    }
+                            </select>
+
+                        </div>
+                        <div class="col-2">
+                            <select asp-for="startDateMonth" size="1">
+                                <option value="0">Select</option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <input type="text" asp-for="@Model.startDateYear" value="@System.DateTime.Now.Year" readonly
+                                size="3">
+                        </div>
+                        <div class="col-6">
+                            <div id="endBy" class="row">
+                                <div class="col-2"><b>End by:</b></div>
+                                <div class="col-2">
+                                    <select asp-for="endDateDay">
+                                        @for (var i=1; i<32; i++) { <option value="@i">@i</option>
+                                            }
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <select asp-for="endDateMonth" size="1">
+                                        <option value="0">Select</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" asp-for="endDateYear" value="@System.DateTime.Now.Year" readonly
+                                        size="3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-2"><b>End After:</b></div>
+                        <div class="col-2">
+                            <select asp-for="Event.Recurrence.Range.Type">
+                                <option>Select</option>
+                                <option value="endDate">End Date</option>
+                                <option value="noEnd">No End Date</option>
+                                <option value="numbered">Number of Occurances</option>
+                            </select>
+                        </div>
+                    </div><br />
+
+                    <div id="noOfOccurances" class="row">
+                        <div class="col-2"><b>No of Occurances</b></div>
+                        <div class="col-2">
+                            <input type="text" asp-for="Event.Recurrence.Range.NumberOfOccurrences" />
+                        </div>
+                    </div><br />
+
+                    <div id="noEndDate" class="row">
+                        <div class="col-2"><b>No End Date</b></div>
+                        <div class="col-2">
+                            <input type="checkbox" value="No End date" />
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-       </div><br/>
+            <br />
 
-       <div class="row">
-            <div  class="col-4"> <label><b>Allow NewTime Proposals</b></label>  </div>
-            <div class="col-5"><input class="form-control" type="text" asp-for="Event.AllowNewTimeProposals" value="true" readonly/></div>
-        </div><br />
+            <input class="form-control" type="hidden" asp-for="Event.TransactionId"
+                value="7E163156-7762-4BEB-A1C6-729EA81755A1" />
 
-            <div class="col-5"> <input class="form-control" type="hidden" asp-for="Event.TransactionId" value="7E163156-7762-4BEB-A1C6-729EA81755A1"/></div>
-     
-        <div class="row">
-            <div  class="col-3"> </div>
-            <div class="col-5"> <input class="btn btn-outline-info" type="submit" asp-page-handler="Submit" value="Schedule Meeting"/></div>
-        </div><br />
-    </form>
-    <span>
+            <div class="row">
+                <div class="col-4"> </div>
+                <div class="col-6 align-items-center"> <input class="btn btn-outline-info" type="submit" asp-page-handler="Submit"
+                        value="Schedule Meeting" /></div>
+            </div><br />
+        </form>
+        <span>
             @if(@Model.Message != null && @Model.Message != "")
             {
-                <p class="alert alert-success">@Model.Message</p>
+            <p class="alert alert-success">@Model.Message</p>
             }
         </span>
-</div>
-    </body>
+
+</body>
 }
 else
 {
-     <a class="btn btn-primary btn-large" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Click here to sign in</a>
+<a class="btn btn-primary btn-large" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Click
+    here to sign in</a>
 }
 
 </html>
