@@ -7,5 +7,7 @@ namespace DotNetCoreRazor_MSGraph.Model
         public Event Event { get; set; }
 
         public Attendee Attendee { get; set; }
+
+        //model class with variables
 }
 }
