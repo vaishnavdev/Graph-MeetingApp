@@ -9,5 +9,8 @@ namespace DotNetCoreRazor_MSGraph.Model
 
         public Attendee Attendee { get; set; }
 
+        public Attendee OptionalAttendee { get; set; }
+
+
 }
 }
