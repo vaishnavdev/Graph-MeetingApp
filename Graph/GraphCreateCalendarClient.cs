@@ -25,7 +25,10 @@ namespace DotNetCoreRazor_MSGraph.Graph
             Random random = new Random();
             int randomNumber = random.Next(0, 100);
             model.IsOnlineMeeting = true;
+            model.ReminderMinutesBeforeStart = 5;
+            model.IsReminderOn = true;
             model.TransactionId = model.TransactionId+ randomNumber;
+            //model.Recurrence.Range.StartDate = new Date(2023, 03, 21);
             var Event = model;
             var result = _graphServiceClient.
                 Me.Events.
