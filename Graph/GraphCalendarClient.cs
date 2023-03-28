@@ -41,7 +41,7 @@ namespace DotNetCoreRazor_MSGraph.Graph
                 // Use GraphServiceClient to call Me.CalendarView
                 var calendarEvents = await _graphServiceClient
                     .Me
-                    .CalendarView
+                    .Events
                     .Request(viewOptions)
                     .Header("Prefer", $"outlook.timezone=\"{userTimeZone}\"")
                     .Select(evt => new
@@ -55,6 +55,7 @@ namespace DotNetCoreRazor_MSGraph.Graph
                         evt.Body,
                         evt.Location,
                         evt.SeriesMasterId,
+                        evt.Recurrence
                         //evt.Recurrence.Pattern.Type.Value,
                         //evt.Recurrence.Range.StartDate.Day,
                         //evt.Recurrence.Range.StartDate.Month,

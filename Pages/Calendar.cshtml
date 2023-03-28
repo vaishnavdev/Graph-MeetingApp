@@ -93,6 +93,56 @@
                                         }
                                     </div>
                                 </div>
+                                @if(evt.Recurrence != null)
+                                {
+                                    @if(evt.Recurrence.Pattern.Type == Microsoft.Graph.RecurrencePatternType.Daily)
+                                    {
+                                        <div class="row">
+                                            <div class="col-4"><b>Recurrence</b></div>
+                                            <div class="col">
+                                                <table class="table table-bordered table-hover">
+                                                    <tr>
+                                                        <th>Type</th>
+                                                        <th>Interval (days)</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@evt.Recurrence.Pattern.Type</td>
+                                                        <td>@evt.Recurrence.Pattern.Interval</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        
+                                    }
+                                    @if(evt.Recurrence.Pattern.Type == Microsoft.Graph.RecurrencePatternType.Weekly)
+                                    {
+                                        <div class="row">
+                                            <div class="col-4"><b>Recurrence</b></div>
+                                            <div class="col">
+                                                <table class="table table-bordered table-hover">
+                                                    <tr>
+                                                        <th>Type</th>
+                                                        <th>Interval (days)</th>
+                                                        <th>Recurring days of Week</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@evt.Recurrence.Pattern.Type</td>
+                                                        <td>@evt.Recurrence.Pattern.Interval</td>
+                                                        <td>
+                                                        @for (var i = 0; i < @evt.Recurrence.Pattern.DaysOfWeek.Count(); i++)
+                                                       {
+                                                           <p>@evt.Recurrence.Pattern.DaysOfWeek.ElementAtOrDefault(i)</p> 
+                                                       }
+         
+                                                       </td>
+                                                        
+                                                        
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    }
+                                }
                             </div>
                         </p>
                     </div>
